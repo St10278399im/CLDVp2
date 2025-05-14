@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplicationTest.Models.Event>
+
+@{
+    ViewBag.Title = "Events";
+}
+
+<h2>Events</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Venue</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Venue.Name
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Date.ToString("MM/dd/yyyy")
+                </td>
+                <td>
+                    @item.Description
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Title" style="max-width: 100px; max-height: 100px;" />
+                    }
+                    else
+                    {
+                        <span>No image</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
